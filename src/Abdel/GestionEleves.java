@@ -1,4 +1,5 @@
 package Abdel;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class GestionEleves {
     }
 
     public void ajouterEleve() {
-        System.out.println("Nom: ");
+        System.out.print("Nom: ");
         String nom = scanner.nextLine();
         System.out.print("Âge: ");
         int age = scanner.nextInt();
@@ -37,9 +38,9 @@ public class GestionEleves {
                 String nom = scanner.nextLine();
                 System.out.print("Nouvel âge: ");
                 int age = scanner.nextInt();
-                scanner.nextLine();
-                listeEleves.remove(e);
-                listeEleves.add(new Eleve(nom, age, matricule));
+                scanner.nextLine(); // Absorber le retour à la ligne
+                e.setNom(nom); // Modification du nom
+                e.setAge(age); // Modification de l'âge
                 System.out.println("Élève modifié !");
                 return;
             }
