@@ -1,4 +1,4 @@
-package cantine;
+package domaine;
 
 public class Produit {
     private int idProduit;

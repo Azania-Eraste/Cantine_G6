@@ -1,4 +1,4 @@
-package cantine;
+package domaine;
 
 import java.util.HashMap;
 import java.util.Map;
