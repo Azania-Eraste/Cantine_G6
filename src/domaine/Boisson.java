@@ -1,4 +1,4 @@
-package Cantine_G6;
+package domaine;
 
 public class Boisson {
     private String nom;
