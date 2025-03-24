@@ -1,4 +1,4 @@
-package promos;
+package domaine;
 
 public class Promotion {
     private String description;

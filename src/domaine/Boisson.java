@@ -1,25 +1,10 @@
 package domaine;
 
-public class Boisson {
-    private String nom;
-    private String description;
-    private int stock;
+public class Boisson extends Produit{
 
-    public Boisson(String nom, String description, int stock) {
-        this.nom = nom;
-        this.description = description;
-        this.stock = stock;
+
+    public Boisson(int idProduit,String nom, int prix,String description, int stock) {
+        super(idProduit,nom, description, prix, stock); // Appel au constructeur de Produit
     }
 
-    public String getNom() {
-        return nom;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public int getStock() {
-        return stock;
-    }
 }

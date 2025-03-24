@@ -78,18 +78,4 @@ public class Stock {
         }
     }
 
-    // Recherche par catégorie
-    public void rechercherParCategorie(String categorieRecherche) {
-        boolean trouve = false;
-        for (StockItem item : produits.values()) {
-            if (item.produit.getCategorie().equalsIgnoreCase(categorieRecherche)) {
-                item.produit.afficherDetails();
-                System.out.println("Quantité en stock: " + item.quantite);
-                trouve = true;
-            }
-        }
-        if (!trouve) {
-            System.out.println("Aucun produit trouvé dans la catégorie : " + categorieRecherche);
-        }
-    }
 }

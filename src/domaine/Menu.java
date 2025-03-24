@@ -1,9 +1,10 @@
-package cantine;
+package domaine;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu {
+
+public class Menu extends Produit{
     private List<Produit> produits;
 
     // Constructeur par défaut, initialisant une liste vide
