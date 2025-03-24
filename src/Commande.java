@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Commande {
+class Commande {
     private List<Repas> repasList;
     private StatutCommande statut;
 
