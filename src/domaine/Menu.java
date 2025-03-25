@@ -3,8 +3,7 @@ package domaine;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class Menu extends Produit{
+public class Menu {
     private List<Produit> produits;
 
     // Constructeur par défaut, initialisant une liste vide
