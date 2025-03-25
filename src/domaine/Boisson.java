@@ -1,10 +1,19 @@
 package domaine;
 
-public class Boisson extends Produit{
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
+public class Boisson extends Produit {
 
-    public Boisson(int idProduit,String nom, int prix,String description, int stock) {
-        super(idProduit,nom, description, prix, stock); // Appel au constructeur de Produit
+    public transient BooleanProperty selectedProperty; // Propriété pour la sélection (comme dans Repas)
+
+    public Boisson(int idProduit, String nom, String description, double prix, int stock) {
+        super(idProduit, nom, description, prix, stock);
+        this.selectedProperty = new SimpleBooleanProperty(false); // Initialisé à false
     }
 
+    // Getter pour selectedProperty (nécessaire pour les CheckBox)
+    public BooleanProperty selectedProperty() {
+        return selectedProperty;
+    }
 }

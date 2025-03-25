@@ -1,75 +1,40 @@
 package domaine;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Commande {
+    private List<Produit> produits;
+    private ModePaiement modePaiement;
+    private double total;
+    private LocalDateTime date;
 
- 
-    private Client client;
-    private double montant;
-    private boolean estPrecommande;
-    private List<Repas> repas;
-    private List<Boisson> boissons;
-    private Paiement paiement;
-
-    // Constructeur corrigé (sans valeur par défaut dans les paramètres)
-    public Commande(Client client, double montant, boolean estPrecommande) {
-        this.client = client;
-        this.montant = montant;
-        this.estPrecommande = estPrecommande;
+    // Constructeur avec List<Produit> et ModePaiement
+    public Commande(List<Produit> produits, ModePaiement modePaiement) {
+        this.produits = produits;
+        this.modePaiement = modePaiement;
+        this.total = produits.stream().mapToDouble(Produit::getPrix).sum();
+        this.date = LocalDateTime.now();
     }
 
-    public List<Repas> getRepas() {
-        return repas;
+    public List<Produit> getProduits() {
+        return produits;
     }
 
-    public void setRepas(List<Repas> repas) {
-        this.repas = repas;
+    public ModePaiement getModePaiement() {
+        return modePaiement;
     }
 
-    public List<Boisson> getBoissons() {
-        return boissons;
+    public double getTotal() {
+        return total;
     }
 
-    public void setBoissons(List<Boisson> boissons) {
-        this.boissons = boissons;
+    public LocalDateTime getDate() {
+        return date;
     }
 
-    public Paiement getPaiement() {
-        return paiement;
-    }
-
-    public void setPaiement(Paiement paiement) {
-        this.paiement = paiement;
-    }
-
-    // Option alternative : Constructeur avec valeur par défaut pour estPrecommande
-    public Commande(Client client, double montant) {
-        this(client, montant, false); // Appelle l'autre constructeur avec false par défaut
-    }
-
-    // Getters et Setters
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public double getMontant() {
-        return montant;
-    }
-
-    public void setMontant(double montant) {
-        this.montant = montant;
-    }
-
-    public boolean isEstPrecommande() {
-        return estPrecommande;
-    }
-
-    public void setEstPrecommande(boolean estPrecommande) {
-        this.estPrecommande = estPrecommande;
+    @Override
+    public String toString() {
+        return "Commande du " + date + " - Total: " + total + "€ via " + modePaiement;
     }
 }

@@ -4,40 +4,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
-    private List<Produit> produits;
+    private List<Repas> repas;
 
     // Constructeur par défaut, initialisant une liste vide
     public Menu() {
-        this.produits = new ArrayList<>();
+        this.repas = new ArrayList<>();
     }
 
-    // Constructeur permettant d'initialiser directement avec une liste de produits
-    public Menu(List<Produit> produits) {
-        this.produits = produits;
+    // Constructeur permettant d'initialiser directement avec une liste de Repas
+    public Menu(List<Repas> Repas) {
+        this.repas = Repas;
     }
 
-    // Méthode pour ajouter un produit
-    public void ajouterProduit(Produit produit) {
-        produits.add(produit);
+    // Méthode pour ajouter un Repas
+    public void ajouterRepas(Repas Repas) {
+        repas.add(Repas);
     }
 
-    // Méthode pour retirer un produit
-    public boolean retirerProduit(Produit produit) {
-        return produits.remove(produit);
+    // Méthode pour retirer un Repas
+    public boolean retirerRepas(Repas Repas) {
+        return repas.remove(Repas);
     }
 
-    // Getter pour la liste des produits
-    public List<Produit> getProduits() {
-        return produits;
+    // Getter pour la liste des Repas
+    public List<Repas> getRepas() {
+        return repas;
     }
 
     // Affichage complet du menu
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Menu :\n");
-        for (Produit produit : produits) {
-            sb.append("- ").append(produit.getNom())
-              .append(" : ").append(produit.getPrix()).append("€\n");
+        for (Repas Repas : repas) {
+            sb.append("- ").append(Repas.getNom())
+              .append(" : ").append(Repas.getPrix()).append("€\n");
         }
         return sb.toString();
     }

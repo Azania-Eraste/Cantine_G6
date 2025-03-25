@@ -1,35 +1,34 @@
 package domaine;
 
 import java.util.ArrayList;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 public class Repas extends Produit {
     
-    private ArrayList<String> accompagnements; // Liste des accompagnements
+    private ArrayList<Supplement> accompagnements;
+    public transient BooleanProperty selectedProperty; // Propriété pour la sélection
 
-    // Constructeur corrigé
     public Repas(int idProduit, String nom, String description, double prix, int stock) {
-        super(idProduit, nom, description, prix, stock); // Appel au constructeur de Produit
-        this.accompagnements = new ArrayList<>(); // Initialisation de la liste
+        super(idProduit, nom, description, prix, stock);
+        this.accompagnements = new ArrayList<>();
+        this.selectedProperty = new SimpleBooleanProperty(false); // Initialisé à false
     }
 
-    // Getter pour accompagnements
-    public ArrayList<String> getAccompagnements() {
+    public ArrayList<Supplement> getAccompagnements() {
         return accompagnements;
     }
 
-    // Ajouter un accompagnement
-    public void ajouterAccompagnement(String accompagnement) {
+    public void ajouterAccompagnement(Supplement accompagnement) {
         accompagnements.add(accompagnement);
     }
 
-    // Redéfinition de afficherDetails pour inclure les accompagnements et le stock
     @Override
     public void afficherDetails() {
-        super.afficherDetails(); // Appel à la méthode de Produit
+        super.afficherDetails();
         System.out.println("Stock : " + getStock() + " | Accompagnements : " + accompagnements);
     }
 
-    // Redéfinition de toString pour un affichage complet
     @Override
     public String toString() {
         return "Repas{" +
@@ -37,25 +36,23 @@ public class Repas extends Produit {
                 ", nom='" + getNom() + '\'' +
                 ", description='" + getDescription() + '\'' +
                 ", prix=" + getPrix() +
-                ", categorie='" + '\'' +
                 ", stock=" + getStock() +
                 ", accompagnements=" + accompagnements +
                 '}';
     }
 
-
-
     @Override
     public int getStock() {
-        // TODO Auto-generated method stub
         return super.getStock();
     }
 
-
-
     @Override
     public void setStock(int stock) {
-        // TODO Auto-generated method stub
         super.setStock(stock);
+    }
+
+    // Getter pour la propriété selectedProperty
+    public BooleanProperty selectedProperty() {
+        return selectedProperty;
     }
 }
