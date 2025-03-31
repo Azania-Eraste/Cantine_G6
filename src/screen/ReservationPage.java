@@ -29,7 +29,7 @@ public class ReservationPage extends Application {
         lblTitre.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
         TableView<Produit> tableReservations = new TableView<>();
-        tableReservations.setPlaceholder(new Label("Aucune réservation"));
+        tableReservations.setPlaceholder(new Label("Aucune reservation"));
         tableReservations.setPrefWidth(600);
 
         TableColumn<Produit, String> colNom = new TableColumn<>("Nom");
@@ -38,7 +38,7 @@ public class ReservationPage extends Application {
         colNom.setMinWidth(300);
         colNom.setMaxWidth(500);
 
-        TableColumn<Produit, Number> colPrix = new TableColumn<>("Prix (€)");
+        TableColumn<Produit, Number> colPrix = new TableColumn<>("Prix (Franc CFA)");
         colPrix.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getPrix()));
         colPrix.setPrefWidth(200);
         colPrix.setMinWidth(100);
@@ -51,7 +51,7 @@ public class ReservationPage extends Application {
         lblPaiement.setStyle("-fx-font-size: 14px;");
         ComboBox<ModePaiement> comboPaiement = new ComboBox<>();
         comboPaiement.getItems().addAll(ModePaiement.values());
-        comboPaiement.setPromptText("Sélectionnez un mode de paiement");
+        comboPaiement.setPromptText("Selectionnez un mode de paiement");
         comboPaiement.setPrefWidth(250);
 
         Button btnConfirmer = new Button("Confirmer");
@@ -65,7 +65,7 @@ public class ReservationPage extends Application {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Erreur");
                 alert.setHeaderText(null);
-                alert.setContentText("Veuillez sélectionner un mode de paiement !");
+                alert.setContentText("Veuillez selectionner un mode de paiement !");
                 alert.showAndWait();
             }
         });
@@ -80,7 +80,7 @@ public class ReservationPage extends Application {
         root.setStyle("-fx-background-color: #f4f4f4;");
 
         Scene scene = new Scene(root);
-        primaryStage.setTitle("Réservations - Cantine G6");
+        primaryStage.setTitle("Reservations - Cantine G6");
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
         primaryStage.show();

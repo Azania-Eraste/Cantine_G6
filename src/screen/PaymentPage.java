@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
+import javafx.scene.control.ProgressBar;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -48,9 +49,10 @@ public class PaymentPage extends Application {
         txtDetails.setPrefWidth(250);
         txtDetails.setVisible(false);
 
-        // Label pour afficher l'état du paiement
-        Label lblStatut = new Label("");
-        lblStatut.setStyle("-fx-font-size: 14px; -fx-text-fill: green;");
+        // ProgressBar pour l'animation
+        ProgressBar progressBar = new ProgressBar(0);
+        progressBar.setPrefWidth(250);
+        progressBar.setVisible(false);
 
         // Afficher/masquer et ajuster le champ selon le mode choisi
         comboPaiement.setOnAction(e -> {
@@ -64,7 +66,7 @@ public class PaymentPage extends Application {
             } else {
                 txtDetails.setVisible(false);
             }
-            lblStatut.setText(""); // Réinitialiser le statut
+            progressBar.setVisible(false); // Réinitialiser la barre
         });
 
         // Bouton pour confirmer le paiement
@@ -92,17 +94,27 @@ public class PaymentPage extends Application {
                 }
             }
 
-            // Désactiver le bouton pendant la simulation
+            // Désactiver le bouton et afficher la ProgressBar
             btnPayer.setDisable(true);
-            lblStatut.setText("Traitement du paiement en cours...");
+            progressBar.setVisible(true);
+            progressBar.setProgress(0);
 
-            // Simulation de paiement avec un délai de 2 secondes
+            // Simulation de paiement avec animation
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(event -> {
-                lblStatut.setText("Paiement réussi !");
+                progressBar.setProgress(1); // Barre pleine
                 primaryStage.close();
-                new ConfirmationPage(produitsReserves, modePaiement).start(new Stage());
+                // Passer les détails à ConfirmationPage
+                new ConfirmationPage(produitsReserves, modePaiement, details).start(new Stage());
             });
+
+            // Simuler la progression (mise à jour toutes les 0.5 secondes)
+            for (int i = 1; i <= 4; i++) {
+                PauseTransition step = new PauseTransition(Duration.seconds(0.5 * i));
+                double progress = i / 4.0;
+                step.setOnFinished(evt -> progressBar.setProgress(progress));
+                step.play();
+            }
             pause.play();
         });
 
@@ -112,7 +124,7 @@ public class PaymentPage extends Application {
         btnAnnuler.setOnAction(e -> primaryStage.close());
 
         // Mise en page
-        VBox root = new VBox(20, lblTitre, lblTotal, lblPaiement, comboPaiement, txtDetails, btnPayer, btnAnnuler, lblStatut);
+        VBox root = new VBox(20, lblTitre, lblTotal, lblPaiement, comboPaiement, txtDetails, btnPayer, btnAnnuler, progressBar);
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(30));
         root.setStyle("-fx-background-color: #f4f4f4;");
@@ -127,12 +139,12 @@ public class PaymentPage extends Application {
 
     // Validation du numéro de téléphone (10 chiffres)
     private boolean isValidPhoneNumber(String phone) {
-        return Pattern.matches("\\d{10}", phone); // Regex : exactement 10 chiffres
+        return Pattern.matches("\\d{10}", phone);
     }
 
     // Validation du numéro de carte (16 chiffres)
     private boolean isValidCardNumber(String card) {
-        return Pattern.matches("\\d{16}", card); // Regex : exactement 16 chiffres
+        return Pattern.matches("\\d{16}", card);
     }
 
     // Méthode utilitaire pour afficher une alerte

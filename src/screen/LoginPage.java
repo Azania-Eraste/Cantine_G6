@@ -4,10 +4,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -15,41 +12,68 @@ public class LoginPage extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Label lblTitre = new Label("Connexion a la Cantine");
-        lblTitre.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        // Titre
+        Label lblTitre = new Label("Connexion");
+        lblTitre.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
 
-        TextField champUtilisateur = new TextField();
-        champUtilisateur.setPromptText("Nom d'utilisateur");
-        champUtilisateur.setMaxWidth(250);
+        // Champ pour le nom d'utilisateur
+        Label lblUsername = new Label("Nom d'utilisateur :");
+        lblUsername.setStyle("-fx-font-size: 14px;");
+        TextField txtUsername = new TextField();
+        txtUsername.setPromptText("Entrez votre nom d'utilisateur");
+        txtUsername.setPrefWidth(250);
 
-        PasswordField champMotDePasse = new PasswordField();
-        champMotDePasse.setPromptText("Mot de passe");
-        champMotDePasse.setMaxWidth(250);
+        // Champ pour le mot de passe
+        Label lblPassword = new Label("Mot de passe :");
+        lblPassword.setStyle("-fx-font-size: 14px;");
+        PasswordField txtPassword = new PasswordField();
+        txtPassword.setPromptText("Entrez votre mot de passe");
+        txtPassword.setPrefWidth(250);
 
-        Button btnConnexion = new Button("Se connecter");
-        btnConnexion.setStyle("-fx-font-size: 14px; -fx-padding: 10px 20px;");
-        btnConnexion.setOnAction(e -> {
-            String utilisateur = champUtilisateur.getText();
-            String motDePasse = champMotDePasse.getText();
-            if (utilisateur.equals("admin") && motDePasse.equals("1234")) {
-                System.out.println("Connexion réussie pour : " + utilisateur);
-                primaryStage.close();
-                new HomePage().start(primaryStage); // Ouvre MenuPage
-            } else if (utilisateur.isEmpty() || motDePasse.isEmpty()) {
-                System.out.println("Veuillez remplir tous les champs !");
+        // Bouton pour se connecter
+        Button btnLogin = new Button("Se connecter");
+        btnLogin.setStyle("-fx-font-size: 14px; -fx-padding: 10px 20px;");
+        btnLogin.setOnAction(e -> {
+            String username = txtUsername.getText().trim();
+            String password = txtPassword.getText();
+
+            // Validation simple (à remplacer par une vraie vérification)
+            if (username.isEmpty() || password.isEmpty()) {
+                showAlert("Erreur", "Veuillez remplir tous les champs !");
             } else {
-                System.out.println("Identifiants incorrects !");
+                System.out.println("Connexion réussie pour : " + username);
+                primaryStage.close();
+                new HomePage().start(new Stage());
             }
         });
 
-        VBox root = new VBox(20, lblTitre, champUtilisateur, champMotDePasse, btnConnexion);
+        // Bouton pour s'inscrire
+        Button btnSignUp = new Button("Pas de compte ? S'inscrire");
+        btnSignUp.setStyle("-fx-font-size: 14px; -fx-padding: 10px 20px; -fx-background-color: transparent; -fx-text-fill: blue;");
+        btnSignUp.setOnAction(e -> {
+            primaryStage.close();
+            new SignUpPage().start(new Stage());
+        });
+
+        // Mise en page
+        VBox root = new VBox(20, lblTitre, lblUsername, txtUsername, lblPassword, txtPassword, btnLogin, btnSignUp);
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(30));
         root.setStyle("-fx-background-color: #f4f4f4;");
 
-        Scene scene = new Scene(root, 400, 300);
+        // Scène
+        Scene scene = new Scene(root);
         primaryStage.setTitle("Connexion - Cantine G6");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    // Méthode utilitaire pour afficher une alerte
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
